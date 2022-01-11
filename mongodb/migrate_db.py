@@ -20,8 +20,9 @@ if TARGET_DATABASE == "":
 SOURCE_CLIENT = MongoClient(SOURCE_DB_URL)
 LOCAL_CLIENT = MongoClient("mongodb://localhost:27017/") #If want to dump locally
 CLIENT = SOURCE_CLIENT
+WRITE_CLIENT = SOURCE_CLIENT
 if (dump_case.lower() == "yes" or dump_case.lower() == "y"):
-    CLIENT = LOCAL_CLIENT
+    WRITE_CLIENT = LOCAL_CLIENT
 
 DATABASE = CLIENT[SOURCE_DATABASE]
 COLLECTIONS = DATABASE.list_collection_names()
@@ -32,7 +33,7 @@ try:
         print(f"Migrating collection '{each}' to {TARGET_DATABASE}")
         print(f"Found {DATABASE[each].count_documents({})} documents inside '{each}' collection") 
         for x in DATABASE[each].find({}):
-            CLIENT[TARGET_DATABASE][each].insert_one(x)
+            WRITE_CLIENT[TARGET_DATABASE][each].insert_one(x)
         print(f"Completed migrating collection: {each} \n\n")
     print(f"Successfully migrated all collections from {SOURCE_DATABASE} to {TARGET_DATABASE} \n")
     print("Task completed successfully!")
