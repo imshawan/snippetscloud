@@ -17,7 +17,7 @@ def list_directories_in_target_directory(target_dir=os.getcwd()):
     return directories
 
 def get_directory_size(directory):
-     """
+    """
         Calculates the total size in bytes of the specified directory and all its subdirectories.
 
         Parameters:
