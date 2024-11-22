@@ -35,4 +35,4 @@ int main() {
 
 
 // For Compiling
-// gcc open_url.c -o open_url
+// gcc open_links.c -o open_links
